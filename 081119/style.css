@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game {
+    position: relative;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+#text {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%) translateY(-40%);
+    font-size: 1.5rem;
+}
+
+.button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
+    background-color: black;
+    color: white;
+    font-size: 1.3rem;
+    text-decoration: underline;
+    cursor: pointer;
+    user-select: none;
+}
+
+.hidden {
+    display: none;
+}
