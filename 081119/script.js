@@ -1,10 +1,7 @@
 const button = document.querySelector(".button");
 const text = document.querySelector("#text");
 
-const fisk = ["torsk", "laks", "sei", "makrell"]
-
-let clickCounter = 0;
-
+const fisk = ["torsk", "laks", "sei", "makrell"];
 let timerNum = Math.floor((Math.random() * 6000) + 1000);
 
 button.addEventListener("click", changeText);
@@ -22,6 +19,6 @@ function timeOutComplete() {
     if (fiskeLykke == 3) {
         text.innerHTML = `Du fikk en ${fisk[fishNum]}!`;
     } else {
-        text.innerHTML = "Du fikk ingen fisk!";
+        text.innerHTML = "Du fikk ikke fisk!";
     }
 }

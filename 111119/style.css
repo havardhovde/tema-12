@@ -1,5 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'IBM Plex Mono', monospace;
+    color: rgb(51, 205, 37);
+}
+
+.game {
+    position: relative;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.text {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%) translateY(-40%);
+    font-size: 1.5rem;
+}
+
+.button {
+    position: absolute;
+    background-color: black;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 1.3rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.button:hover {
+    text-decoration: underline;
+}
+
+.button:before {
+    content: "> ";
+}
+
+.button-0 {
+    top: 50%;
+}
+
+.button-1 {
+    top: 55%;
+}
+
+.button-2 {
+    top: 60%;
+}
+
+.hidden {
+    display: none;
 }

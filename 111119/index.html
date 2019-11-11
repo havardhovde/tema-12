@@ -4,12 +4,42 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Quizzz</title>
+   <title>Zombie Escape</title>
    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="game">
+        <div class="scene1">
+            <p class="text">You are walking down a dark sidewalk. Suddenly you hear a growling noise from behind a garden fence. What do you want to do?</p>
+            <div class="button button-0">have a look</div>
+            <div class="button button-1">keep on walking</div>
+            <div class="button button-2">start running</div>
+        </div>
 
+        <div class="scene2 hidden">
+            <p class="text">
+                Zombies ate your brain
+            </p>
+            <div class="button button-0">reset game</div>
+        </div>
+
+        <div class="scene3 hidden">
+            <p class="text">
+                You start running and zombies climb over the fence, chasing you.
+            </p>
+            <div class="button button-0">run to the nearest house</div>
+            <div class="button button-1">run to the forest</div>
+        </div>
+
+        <div class="scene4 hidden">
+            <p class="text">
+                You enter the house, nobody appears to be home
+            </p>
+            <div class="button button-0">run to the nearest house</div>
+            <div class="button button-1">run to the forest</div>
+        </div>
+
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
