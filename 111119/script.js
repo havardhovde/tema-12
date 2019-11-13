@@ -70,7 +70,7 @@ s3b0.addEventListener("click", (e) => {
 //     document.querySelector(".button-2")
 // ];
 
-// for (i = 0; i < buttons.length; i++) {
+// for (let i = 0; i < buttons.length; i++) {
 //     buttons[i].addEventListener("click", (event) => {
 //         alert(`🤠  ${i}`)
 //     });
