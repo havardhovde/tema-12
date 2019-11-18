@@ -28,13 +28,12 @@ function draw() {
         context.fillRect(tile.x, tile.y, tileSize, tileSize);
     }
 
+    //Generate fruit
     let fruitSpawnInSnake;
 
-    //Generate fruit
     for (let i = 0; i < snakeBody.length; i++) {
         if (fruitX == snakeBody[i].x && fruitY == snakeBody[i].y) {
             fruitSpawnInSnake == true;
-            console.log("inside");
         } else {
             fruitSpawnInSnake == false;
         }
@@ -56,7 +55,7 @@ function draw() {
     newHeadPos.x = oldHeadPos.x + xSpeed;
     newHeadPos.y = oldHeadPos.y + ySpeed;
     
-
+    //Check for self-collision
     for (let i = 0; i < snakeBody.length; i++) {
         if((newHeadPos.x == snakeBody[i].x ) && (newHeadPos.y == snakeBody[i].y)) {
             eatSelf = true;
