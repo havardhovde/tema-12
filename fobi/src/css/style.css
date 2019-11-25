@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif&display=swap');
+
+* {
+	box-sizing: border-box;
+	user-select: none;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: Arial, sans-serif;
+	background: rgb(236, 236, 236);
+	font-size: 16px;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
