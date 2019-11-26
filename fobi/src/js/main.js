@@ -1,29 +1,28 @@
 // https://no.wikibooks.org/wiki/Formelsamling:Trigonometri#Cosinus
 
-/**
-	FIXME: Sometimes the bike sticks to the ground on small (sharp) jumps.
-	TODO: Scroll background
-*/
-
 "use strict";
 
-let collisionMap;
+let bottomImg;
 let topImg;
 let bgImg;
 let world = {};
 let character = {};
 let speed = 0;
 let maxSpeed = 15;
-let characterColor = "black";
+let characterColor = `rgb(0, 0, 0)`;
+let startRed = 260;
+let endRed = 1085;
+let redZone = startRed - endRed;
+let redColor = redZone / 3.23
 
 function preload() {
-	collisionMap = loadImage('./assets/grotte_nede.png');
+	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
 }
 
 function setup() {
 	createCanvas(1280, 720);
-	collisionMap.loadPixels();
+	bottomImg.loadPixels();
 	initGame();
 	bgImg = loadImage('./assets/bg.png');
 }
@@ -40,9 +39,8 @@ function draw() {
 
 	// draw background
 	background(bgImg);
-	image(topImg, 0, 30);
-	// image(collisionMap, 0, 180);
-	image(collisionMap, 0 + world.position.x, 18 + world.position.y, collisionMap.width, collisionMap.height);
+	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
+	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
 
 	// draw the character
 	drawChar();
@@ -54,7 +52,6 @@ function draw() {
 	character.position.x += speed;
 
 	let resolverCounter = 0;
-	let startY = character.position.y;
 	while(checkForCollision(character.position.x, character.position.y)) {
 		character.position.y -= 1;
 		character.velocity = createVector(0, 0);
@@ -66,28 +63,27 @@ function draw() {
 		}
 	}
 
-	// if (character.position.x > 500) {
-	// 	speed = 1;	 
-	// } else {
-		
-	// }
-
 	//Change color
+	if (character.position.x > startRed && character.position.x < endRed) {
+		
+	}
+
 	// if (character.position.x > 500) {
 	// 	characterColor = "red";
 	// } else {
 	// 	characterColor = "black";
 	// }
 
+	// console.log(Math.round(character.position.x));
 
-	console.log(character.position.x);
+	//Scroll camera
 	// if (character.position.x > width / 2) {
 	// 	world.position.x = (character.position.x - width / 2) * -1;
 	// }
-
-	// if (character.position.y > height / 2) {
-	// 	world.position.y = (character.position.y - height / 2) * -1;
+	// if (character.position.x > width / 2) {
+	// 	topImg.x = (character.position.x - width / 2) * -1;
 	// }
+
 
 	// handle user input
 	if ((keyIsPressed) && (keyCode == 39)) { // right
@@ -111,10 +107,10 @@ function checkForCollision(posX, posY) {
 function getPixelAlphaValue(x, y) {
 	if (x < 0) x = 0;
 	if (y < 0) y = 0;
-	if (x > collisionMap.width) x = collisionMap.width;
-	if (y > collisionMap.height) y = collisionMap.height;
-	let p2d = ((x * 4) + (y * collisionMap.width * 4)) + 3;
-	return collisionMap.pixels[p2d];
+	if (x > bottomImg.width) x = bottomImg.width;
+	if (y > bottomImg.height) y = bottomImg.height;
+	let p2d = ((x * 4) + (y * bottomImg.width * 4)) + 3;
+	return bottomImg.pixels[p2d];
 }
 
 function drawChar() {
