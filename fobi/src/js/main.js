@@ -12,8 +12,7 @@ let maxSpeed = 15;
 let characterColor = `rgb(0, 0, 0)`;
 let startRed = 260;
 let endRed = 1085;
-let redZone = startRed - endRed;
-let redColor = redZone / 3.23
+let redZone = endRed - startRed;
 
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
@@ -62,37 +61,33 @@ function draw() {
 			return;
 		}
 	}
-
+	
 	//Change color
+	//(character.position.x-260)/(825/100)*2.55
+	let characterRed = Math.round((character.position.x - 260)/(redZone/100)*2.55);
+
 	if (character.position.x > startRed && character.position.x < endRed) {
-		
+		characterColor = `rgb(${characterRed}, 0, 0)`
+	} else {
+		characterColor = "black"
 	}
 
-	// if (character.position.x > 500) {
-	// 	characterColor = "red";
-	// } else {
-	// 	characterColor = "black";
-	// }
-
-	// console.log(Math.round(character.position.x));
-
-	//Scroll camera
-	// if (character.position.x > width / 2) {
-	// 	world.position.x = (character.position.x - width / 2) * -1;
-	// }
-	// if (character.position.x > width / 2) {
-	// 	topImg.x = (character.position.x - width / 2) * -1;
-	// }
-
+	// Scroll camera
+	if (character.position.x > width / 2) {
+		world.position.x = (character.position.x - width / 2) * -1;
+	}
+	if (character.position.x > width / 2) {
+		topImg.x = (character.position.x - width / 2) * -1;
+	}
 
 	// handle user input
-	if ((keyIsPressed) && (keyCode == 39)) { // right
-		// console.log("right");
+	//right
+	if ((keyIsPressed) && (keyCode == 39)) {
 		speed += 0.2;
 	}
 
-	if ((keyIsPressed) && (keyCode == 37)) { // left
-		// console.log("left");
+	//left
+	if ((keyIsPressed) && (keyCode == 37)) {
 		speed -= 0.2;
 	}
 }
