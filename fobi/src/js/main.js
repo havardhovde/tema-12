@@ -13,6 +13,7 @@ let characterColor = `rgb(0, 0, 0)`;
 let startRed = 260;
 let endRed = 1085;
 let redZone = endRed - startRed;
+let shakeStart = 670;
 
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
@@ -50,26 +51,24 @@ function draw() {
 	character.position.y += character.velocity.y;
 	character.position.x += speed;
 
-	let resolverCounter = 0;
 	while(checkForCollision(character.position.x, character.position.y)) {
 		character.position.y -= 1;
 		character.velocity = createVector(0, 0);
-		resolverCounter++;
-
-		if(resolverCounter > 100) {
-			console.log("wall collision");
-			return;
-		}
 	}
 	
 	//Change color
-	//(character.position.x-260)/(825/100)*2.55
 	let characterRed = Math.round((character.position.x - 260)/(redZone/100)*2.55);
 
 	if (character.position.x > startRed && character.position.x < endRed) {
 		characterColor = `rgb(${characterRed}, 0, 0)`
 	} else {
 		characterColor = "black"
+	}
+
+	//Shake character (& maybe world?)
+	if (character.position.x > shakeStart && character.position.x < endRed) {
+		character.position.y += Math.random() * 2.5;
+		// world.position.y -= Math.random() * -0.5;
 	}
 
 	// Scroll camera
@@ -82,13 +81,24 @@ function draw() {
 
 	// handle user input
 	//right
-	if ((keyIsPressed) && (keyCode == 39)) {
-		speed += 0.2;
-	}
+	if (character.position.x > shakeStart && character.position.x < endRed) {
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed += 0.05;
+		}
 
-	//left
-	if ((keyIsPressed) && (keyCode == 37)) {
-		speed -= 0.2;
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.2;
+		}
+	} else {
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed += 0.2;
+		}
+
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.2;
+		}
 	}
 }
 
