@@ -5,11 +5,12 @@
 let bottomImg;
 let topImg;
 let bgImg;
+let characterImage;
 let world = {};
 let character = {};
 let speed = 0;
 let maxSpeed = 15;
-let characterColor = `rgb(0, 0, 0)`;
+let characterColor = `rgb(255, 0, 0)`;
 let startRed = 260;
 let endRed = 1085;
 let redZone = endRed - startRed;
@@ -18,6 +19,7 @@ let shakeStart = 670;
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
+	characterImage = loadImage("./assets/phobo4.png")
 }
 
 function setup() {
@@ -65,41 +67,50 @@ function draw() {
 		characterColor = "black"
 	}
 
-	//Shake character (& maybe world?)
+	//character input and shake)
 	if (character.position.x > shakeStart && character.position.x < endRed) {
-		character.position.y += Math.random() * 2.5;
-		// world.position.y -= Math.random() * -0.5;
-	}
-
-	// Scroll camera
-	if (character.position.x > width / 2) {
-		world.position.x = (character.position.x - width / 2) * -1;
-	}
-	if (character.position.x > width / 2) {
-		topImg.x = (character.position.x - width / 2) * -1;
-	}
-
-	// handle user input
-	//right
-	if (character.position.x > shakeStart && character.position.x < endRed) {
+		character.position.y += Math.random() * 7
 		if ((keyIsPressed) && (keyCode == 39)) {
 			speed += 0.05;
+			// speed += Math.random() < 0.5 ? -1 : 1;
 		}
 
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.2;
+			speed -= 0.08;
 		}
 	} else {
 		if ((keyIsPressed) && (keyCode == 39)) {
-			speed += 0.2;
+			speed += 0.08;
 		}
 
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.2;
+			speed -= 0.08;
 		}
 	}
+
+	if (character.position.x > 850 && character.position.x < endRed) {
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed -= 0.02;
+		}
+
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.1;
+		}
+	}
+
+	// Scroll camera
+	// if (character.position.x > width / 2) {
+	// 	world.position.x = (character.position.x - width / 2) * -1;
+	// }
+	// if (character.position.x > width / 2) {
+	// 	topImg.x = (character.position.x - width / 2) * -1;
+	// }
+
+	console.log(Math.round(character.position.x))
+
 }
 
 function checkForCollision(posX, posY) {
@@ -121,11 +132,13 @@ function getPixelAlphaValue(x, y) {
 function drawChar() {
 	let posInWorld = character.position.copy();
 	posInWorld.add(world.position);
-	drawPoint(40, characterColor, posInWorld);
+	image(characterImage, character.position.x - 25, character.position.y + 175, 50, 50);
+	// tint(characterColor);
+	// drawPoint(40, characterColor, posInWorld);
 }
 
-function drawPoint(size, color, position) {
-	strokeWeight(size);
-	stroke(color);
-	point(position.x, position.y);
-}
+// function drawPoint(size, color, position) {
+// 	strokeWeight(size);
+// 	stroke(color);
+// 	point(position.x, position.y);
+// }
