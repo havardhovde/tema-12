@@ -15,11 +15,19 @@ let startRed = 260;
 let endRed = 1085;
 let redZone = endRed - startRed;
 let shakeStart = 670;
+let startLevelSound;
+let caveSound;
+let breathingSound;
+let heartBeat;
 
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
 	characterImage = loadImage("./assets/phobo4.png")
+	startLevelSound = loadSound("./assets/nyfobi.wav")
+	caveSound = loadSound("./assets/vanndrypp_hule.wav");
+	breathingSound = loadSound("./assets/tung_pust.mp3");
+	heartBeat = loadSound("./assets/hjerteslag.wav");
 }
 
 function setup() {
@@ -27,6 +35,16 @@ function setup() {
 	bottomImg.loadPixels();
 	initGame();
 	bgImg = loadImage('./assets/bg.png');
+	startLevelSound.setVolume(0.1);
+	startLevelSound.play();
+	caveSound.setVolume(0.1);
+	caveSound.play();
+	caveSound.setLoop(true);
+	breathingSound.setVolume(0.1);
+	heartBeat.setVolume(0.1);
+	// breathingSound.play();
+	// heartBeat.play();
+	// heartBeat.setLoop(true);
 }
 
 function initGame() {
@@ -38,7 +56,7 @@ function initGame() {
 }
 
 function draw() {
-
+	
 	// draw background
 	background(bgImg);
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
@@ -59,57 +77,19 @@ function draw() {
 	}
 	
 	//Change color
-	let characterRed = Math.round((character.position.x - 260)/(redZone/100)*2.55);
 
 	if (character.position.x > startRed && character.position.x < endRed) {
-		characterColor = `rgb(${characterRed}, 0, 0)`
-	} else {
-		characterColor = "black"
-	}
+		blackOut();
 
-	//character input and shake)
-	if (character.position.x > shakeStart && character.position.x < endRed) {
-		character.position.y += Math.random() * 7
-		if ((keyIsPressed) && (keyCode == 39)) {
-			speed += 0.05;
-			// speed += Math.random() < 0.5 ? -1 : 1;
-		}
-
-		//left
-		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.08;
-		}
-	} else {
-		if ((keyIsPressed) && (keyCode == 39)) {
-			speed += 0.08;
-		}
-
-		//left
-		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.08;
-		}
-	}
-
-	if (character.position.x > 850 && character.position.x < endRed) {
-		if ((keyIsPressed) && (keyCode == 39)) {
-			speed -= 0.02;
-		}
-
-		//left
-		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.1;
-		}
-	}
-
-	// Scroll camera
-	// if (character.position.x > width / 2) {
-	// 	world.position.x = (character.position.x - width / 2) * -1;
-	// }
-	// if (character.position.x > width / 2) {
-	// 	topImg.x = (character.position.x - width / 2) * -1;
+		// characterColor = `rgb(${characterRed}, 0, 0)`
+	
+	} //else {
+	// 	characterColor = "black"
 	// }
 
-	console.log(Math.round(character.position.x))
+	// cameraScroll();
+
+	movementInputs();
 
 }
 
@@ -128,6 +108,67 @@ function getPixelAlphaValue(x, y) {
 	let p2d = ((x * 4) + (y * bottomImg.width * 4)) + 3;
 	return bottomImg.pixels[p2d];
 }
+
+function blackOut() {	
+	let blackoutZone = Math.round((character.position.x - 260)/(redZone/100)*2.55);
+	let blackoutColor = color(0, 0, 0, blackoutZone - 40);
+	fill(blackoutColor);
+	rect(0, 0, 1280, 720);
+	if (breathingSound.isPlaying() == false && heartBeat.isPlaying() == false) {
+		breathingSound.play();
+		breathingSound.setLoop(true);
+		heartBeat.play();
+		heartBeat.setLoop(true);
+	}
+
+
+}
+
+function movementInputs() {
+	if (character.position.x > shakeStart && character.position.x < endRed) {
+		character.position.y += Math.random() * 7
+		// heartBeat.rate(1.2);
+
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed += 0.05;
+			// speed += Math.random() < 0.5 ? -1 : 1;
+		}
+
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.1;
+		}
+	} else {
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed += 0.1;
+		}
+
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.1;
+		}
+	}
+
+	if (character.position.x > 850 && character.position.x < endRed) {
+		if ((keyIsPressed) && (keyCode == 39)) {
+			speed -= 0.02;
+		}
+
+		//left
+		if ((keyIsPressed) && (keyCode == 37)) {
+			speed -= 0.1;
+		}
+	}
+}
+
+// function cameraScroll() {
+// 	if (character.position.x > width / 2) {
+// 		world.position.x = (character.position.x - width / 2) * -1;
+// 	}
+// 	if (character.position.x > width / 2) {
+// 		topImg.x = (character.position.x - width / 2) * -1;
+// 	}
+// }
 
 function drawChar() {
 	let posInWorld = character.position.copy();
