@@ -1,5 +1,3 @@
-// https://no.wikibooks.org/wiki/Formelsamling:Trigonometri#Cosinus
-
 "use strict";
 
 let bottomImg;
@@ -23,7 +21,7 @@ let heartBeat;
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
-	characterImage = loadImage("./assets/phobo4.png")
+	characterImage = loadImage("./assets/phobogif.gif")
 	startLevelSound = loadSound("./assets/nyfobi.wav")
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
@@ -40,11 +38,8 @@ function setup() {
 	caveSound.setVolume(0.1);
 	caveSound.play();
 	caveSound.setLoop(true);
-	breathingSound.setVolume(0.1);
-	heartBeat.setVolume(0.1);
-	// breathingSound.play();
-	// heartBeat.play();
-	// heartBeat.setLoop(true);
+	breathingSound.setVolume(1);
+	heartBeat.setVolume(0.3);
 }
 
 function initGame() {
@@ -56,7 +51,6 @@ function initGame() {
 }
 
 function draw() {
-	
 	// draw background
 	background(bgImg);
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
@@ -71,26 +65,25 @@ function draw() {
 	character.position.y += character.velocity.y;
 	character.position.x += speed;
 
+	cameraScroll();
+
+	movementInputs();
+
 	while(checkForCollision(character.position.x, character.position.y)) {
 		character.position.y -= 1;
 		character.velocity = createVector(0, 0);
 	}
-	
-	//Change color
 
 	if (character.position.x > startRed && character.position.x < endRed) {
 		blackOut();
+	}	
 
-		// characterColor = `rgb(${characterRed}, 0, 0)`
-	
-	} //else {
-	// 	characterColor = "black"
-	// }
+	if (character.position.x > endRed) {
+		breathingSound.stop();
+		heartBeat.stop();
+	}
 
-	// cameraScroll();
-
-	movementInputs();
-
+	console.log(Math.floor(world.position.x))
 }
 
 function checkForCollision(posX, posY) {
@@ -111,7 +104,7 @@ function getPixelAlphaValue(x, y) {
 
 function blackOut() {	
 	let blackoutZone = Math.round((character.position.x - 260)/(redZone/100)*2.55);
-	let blackoutColor = color(0, 0, 0, blackoutZone - 40);
+	let blackoutColor = color(0, 0, 0, blackoutZone);
 	fill(blackoutColor);
 	rect(0, 0, 1280, 720);
 	if (breathingSound.isPlaying() == false && heartBeat.isPlaying() == false) {
@@ -120,20 +113,16 @@ function blackOut() {
 		heartBeat.play();
 		heartBeat.setLoop(true);
 	}
-
-
 }
 
 function movementInputs() {
 	if (character.position.x > shakeStart && character.position.x < endRed) {
 		character.position.y += Math.random() * 7
-		// heartBeat.rate(1.2);
+		heartBeat.rate(1.5);
 
 		if ((keyIsPressed) && (keyCode == 39)) {
 			speed += 0.05;
-			// speed += Math.random() < 0.5 ? -1 : 1;
 		}
-
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
 			speed -= 0.1;
@@ -142,7 +131,6 @@ function movementInputs() {
 		if ((keyIsPressed) && (keyCode == 39)) {
 			speed += 0.1;
 		}
-
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
 			speed -= 0.1;
@@ -153,7 +141,6 @@ function movementInputs() {
 		if ((keyIsPressed) && (keyCode == 39)) {
 			speed -= 0.02;
 		}
-
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
 			speed -= 0.1;
@@ -161,14 +148,11 @@ function movementInputs() {
 	}
 }
 
-// function cameraScroll() {
-// 	if (character.position.x > width / 2) {
-// 		world.position.x = (character.position.x - width / 2) * -1;
-// 	}
-// 	if (character.position.x > width / 2) {
-// 		topImg.x = (character.position.x - width / 2) * -1;
-// 	}
-// }
+function cameraScroll() {
+	if (character.position.x > width / 2) {
+		world.position.x = (character.position.x - width / 2) * -1;
+	}
+}
 
 function drawChar() {
 	let posInWorld = character.position.copy();
