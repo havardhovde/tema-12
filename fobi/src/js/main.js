@@ -65,7 +65,7 @@ function draw() {
 	character.position.y += character.velocity.y;
 	character.position.x += speed;
 
-	cameraScroll();
+	// cameraScroll();
 
 	movementInputs();
 
@@ -83,7 +83,7 @@ function draw() {
 		heartBeat.stop();
 	}
 
-	console.log(Math.floor(world.position.x))
+	// console.log(Math.floor(world.position.x))
 }
 
 function checkForCollision(posX, posY) {
