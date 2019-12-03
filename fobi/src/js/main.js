@@ -28,7 +28,7 @@ function preload() {
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
 	heartBeat = loadSound("./assets/hjerteslag.wav");
-	simplifica = loadFont("./assets/SIMPLIFICA_typeface.ttf");
+	simplifica = loadFont("./assets/SIMPLIFICA_Typeface.ttf");
 }
 
 function setup() {
@@ -43,6 +43,7 @@ function setup() {
 	caveSound.setLoop(true);
 	breathingSound.setVolume(1);
 	heartBeat.setVolume(0.3);
+	textFont(simplifica);
 }
 
 function initGame() {
@@ -58,7 +59,6 @@ function draw() {
 	background(bgImg);
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
 	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
-	textFont(simplifica);
 	textSize(40);
 	fill("#941a28");
 	text("Claustrophobia", 175, 335);
@@ -96,13 +96,6 @@ function draw() {
 		breathingSound.stop();
 		heartBeat.stop();
 	}
-
-	// console.log(mouseX)
-	// console.log(mouseY)
-
-	// console.log(character.position.x)
-
-	// console.log(Math.floor(world.position.x))
 }
 
 function checkForCollision(posX, posY) {
