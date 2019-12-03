@@ -56,7 +56,7 @@ function initGame() {
 }
 
 function draw() {
-	// draw background
+	// draw background, level and text
 	background(bgImg);
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
 	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
@@ -70,9 +70,11 @@ function draw() {
 	// draw the character
 	drawChar();
 
+	// camera settings
 	camera.zoom = 2;
 	camera.position.y = 450;
 
+	// characterspeed and movement
 	character.velocity.y += world.gravity.y;
 	speed /= 1.05;
 
