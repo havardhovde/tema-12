@@ -29,7 +29,7 @@ function preload() {
 }
 
 function setup() {
-	createCanvas(1280, 720);
+	createCanvas(windowWidth, windowHeight);
 	bottomImg.loadPixels();
 	initGame();
 	bgImg = loadImage('./assets/bg.png');
@@ -59,13 +59,16 @@ function draw() {
 	// draw the character
 	drawChar();
 
+	camera.zoom = 2;
+	camera.position.y = 450;
+
 	character.velocity.y += world.gravity.y;
 	speed /= 1.05;
 
 	character.position.y += character.velocity.y;
 	character.position.x += speed;
 
-	// cameraScroll();
+	cameraScroll();
 
 	movementInputs();
 
@@ -82,6 +85,8 @@ function draw() {
 		breathingSound.stop();
 		heartBeat.stop();
 	}
+
+	// console.log(character.position.x)
 
 	// console.log(Math.floor(world.position.x))
 }
@@ -106,7 +111,7 @@ function blackOut() {
 	let blackoutZone = Math.round((character.position.x - 260)/(redZone/100)*2.55);
 	let blackoutColor = color(0, 0, 0, blackoutZone);
 	fill(blackoutColor);
-	rect(0, 0, 1280, 720);
+	rect(-100, 0, 1920, 720);
 	if (breathingSound.isPlaying() == false && heartBeat.isPlaying() == false) {
 		breathingSound.play();
 		breathingSound.setLoop(true);
@@ -149,9 +154,24 @@ function movementInputs() {
 }
 
 function cameraScroll() {
-	if (character.position.x > width / 2) {
-		world.position.x = (character.position.x - width / 2) * -1;
+	if (character.position.x < startRed && character.position.x < 960) {
+		camera.position.x = 385;
 	}
+	if (character.position.x > startRed + 124) {
+		camera.position.x = character.position.x;
+	}
+	if (character.position.x > 890) {
+		console.log("stop");
+		camera.position.x = 890;
+	}
+	// if (character.position.x > startRed + 60) {
+	// 	camera.position.x = character.position.x;
+	// } else if (character.position.x < startRed && character.position.x < 960) {
+	// 	camera.position.x = 320;
+	// } else if (character.position.x > 960) {
+	// 	console.log("stop");
+	// 	camera.position.x = 960;
+	// }
 }
 
 function drawChar() {
