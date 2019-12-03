@@ -8,7 +8,6 @@ let world = {};
 let character = {};
 let speed = 0;
 let maxSpeed = 15;
-let characterColor = `rgb(255, 0, 0)`;
 let startRed = 260;
 let endRed = 1085;
 let redZone = endRed - startRed;
@@ -17,15 +16,21 @@ let startLevelSound;
 let caveSound;
 let breathingSound;
 let heartBeat;
+let title;
+let sentence;
+let simplifica;
 
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
 	characterImage = loadImage("./assets/phobogif.gif")
+	title = loadImage("./assets/Tittel_Klaus.png")
+	sentence = loadImage("./assets/Setning_klaus.png");
 	startLevelSound = loadSound("./assets/nyfobi.wav")
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
 	heartBeat = loadSound("./assets/hjerteslag.wav");
+	simplifica = loadFont("./assets/SIMPLIFICA_typeface.ttf");
 }
 
 function setup() {
@@ -55,6 +60,12 @@ function draw() {
 	background(bgImg);
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
 	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
+	textFont(simplifica);
+	textSize(40);
+	fill("#941a28");
+	text("Claustrophobia", 175, 335);
+	textSize(25);
+	text("fear of being in a small space, room, or confined area and unable to escape", 400, 525);
 
 	// draw the character
 	drawChar();
@@ -85,6 +96,9 @@ function draw() {
 		breathingSound.stop();
 		heartBeat.stop();
 	}
+
+	// console.log(mouseX)
+	// console.log(mouseY)
 
 	// console.log(character.position.x)
 
@@ -161,29 +175,12 @@ function cameraScroll() {
 		camera.position.x = character.position.x;
 	}
 	if (character.position.x > 890) {
-		console.log("stop");
 		camera.position.x = 890;
 	}
-	// if (character.position.x > startRed + 60) {
-	// 	camera.position.x = character.position.x;
-	// } else if (character.position.x < startRed && character.position.x < 960) {
-	// 	camera.position.x = 320;
-	// } else if (character.position.x > 960) {
-	// 	console.log("stop");
-	// 	camera.position.x = 960;
-	// }
 }
 
 function drawChar() {
 	let posInWorld = character.position.copy();
 	posInWorld.add(world.position);
 	image(characterImage, character.position.x - 25, character.position.y + 175, 50, 50);
-	// tint(characterColor);
-	// drawPoint(40, characterColor, posInWorld);
 }
-
-// function drawPoint(size, color, position) {
-// 	strokeWeight(size);
-// 	stroke(color);
-// 	point(position.x, position.y);
-// }
