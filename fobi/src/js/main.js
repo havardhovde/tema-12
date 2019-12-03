@@ -33,6 +33,7 @@ function preload() {
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
+	frameRate(60);
 	bottomImg.loadPixels();
 	initGame();
 	bgImg = loadImage('./assets/bg.png');
@@ -72,7 +73,7 @@ function draw() {
 	camera.zoom = 2;
 	camera.position.y = 450;
 
-	// characterspeed and movement
+	// character speed and movement
 	character.velocity.y += world.gravity.y;
 	speed /= 1.05;
 
