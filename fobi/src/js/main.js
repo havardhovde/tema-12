@@ -60,7 +60,7 @@ function draw() {
 	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
 	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
 	textSize(40);
-	fill("#941a28");
+	fill("#ce6b6b");
 	text("Claustrophobia", 175, 335);
 	textSize(25);
 	text("fear of being in a small space, room, or confined area and unable to escape", 400, 525);
@@ -129,9 +129,11 @@ function blackOut() {
 
 function movementInputs() {
 	if (character.position.x > shakeStart && character.position.x < endRed) {
+		//shake
 		character.position.y += Math.random() * 7
 		heartBeat.rate(1.5);
 
+		//Final slow section
 		if ((keyIsPressed) && (keyCode == 39)) {
 			speed += 0.05;
 		}
