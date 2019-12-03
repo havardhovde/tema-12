@@ -24,8 +24,6 @@ function preload() {
 	bottomImg = loadImage('./assets/grotte_nede.png');
 	topImg = loadImage("./assets/grotte_oppe.png");
 	characterImage = loadImage("./assets/phobogif.gif")
-	title = loadImage("./assets/Tittel_Klaus.png")
-	sentence = loadImage("./assets/Setning_klaus.png");
 	startLevelSound = loadSound("./assets/nyfobi.wav")
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
