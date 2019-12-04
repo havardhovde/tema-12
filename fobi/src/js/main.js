@@ -13,6 +13,7 @@ let endRed = 1085;
 let redZone = endRed - startRed;
 let shakeStart = 670;
 let startLevelSound;
+let voiceOver;
 let caveSound;
 let breathingSound;
 let heartBeat;
@@ -23,8 +24,8 @@ let simplifica;
 function preload() {
 	bottomImg = loadImage('./assets/grotte_nedeNY2.png');
 	topImg = loadImage("./assets/grotte_oppeNY2.png");
-	characterImage = loadImage("./assets/phobogif.gif")
-	startLevelSound = loadSound("./assets/nyfobi.wav")
+	characterImage = loadImage("./assets/phobogif.gif");
+	startLevelSound = loadSound("./assets/nyfobi.wav");
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
 	heartBeat = loadSound("./assets/hjerteslag.wav");
