@@ -140,15 +140,15 @@ function movementInputs() {
 		}
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.1;
+			speed -= 0.07;
 		}
 	} else {
 		if ((keyIsPressed) && (keyCode == 39)) {
-			speed += 0.1;
+			speed += 0.07;
 		}
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.1;
+			speed -= 0.07;
 		}
 	}
 
@@ -158,7 +158,7 @@ function movementInputs() {
 		}
 		//left
 		if ((keyIsPressed) && (keyCode == 37)) {
-			speed -= 0.1;
+			speed -= 0.07;
 		}
 	}
 }
