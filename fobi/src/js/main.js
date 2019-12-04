@@ -21,8 +21,8 @@ let sentence;
 let simplifica;
 
 function preload() {
-	bottomImg = loadImage('./assets/grotte_nede.png');
-	topImg = loadImage("./assets/grotte_oppe.png");
+	bottomImg = loadImage('./assets/grotte_nedeNY2.png');
+	topImg = loadImage("./assets/grotte_oppeNY2.png");
 	characterImage = loadImage("./assets/phobogif.gif")
 	startLevelSound = loadSound("./assets/nyfobi.wav")
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
@@ -58,7 +58,7 @@ function initGame() {
 function draw() {
 	// draw background, level and text
 	background(bgImg);
-	image(topImg, 0 + world.position.x, 230 - world.position.y, topImg.width, topImg.height);
+	image(topImg, 0 + world.position.x, 185 - world.position.y, topImg.width, topImg.height);
 	image(bottomImg, 0 + world.position.x, 18 + world.position.y, bottomImg.width, bottomImg.height);
 	textSize(40);
 	fill("#ce6b6b");
@@ -119,7 +119,7 @@ function blackOut() {
 	let blackoutZone = Math.round((character.position.x - 260)/(redZone/100)*2.55);
 	let blackoutColor = color(0, 0, 0, blackoutZone);
 	fill(blackoutColor);
-	rect(-100, 0, 1920, 720);
+	rect(-400, 0, 2000, 2000);
 	if (breathingSound.isPlaying() == false && heartBeat.isPlaying() == false) {
 		breathingSound.play();
 		breathingSound.setLoop(true);
@@ -164,14 +164,14 @@ function movementInputs() {
 }
 
 function cameraScroll() {
-	if (character.position.x < startRed && character.position.x < 960) {
-		camera.position.x = 385;
+	if (character.position.x < startRed) {
+		camera.position.x = windowWidth / 4;
 	}
-	if (character.position.x > startRed + 124) {
+	if (character.position.x > windowWidth / 4) {
 		camera.position.x = character.position.x;
 	}
-	if (character.position.x > 890) {
-		camera.position.x = 890;
+	if (character.position.x > bottomImg.width - (windowWidth / 4)) {
+		camera.position.x = bottomImg.width - (windowWidth / 4);
 	}
 }
 
