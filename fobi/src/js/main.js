@@ -13,7 +13,6 @@ let endRed = 1085;
 let redZone = endRed - startRed;
 let shakeStart = 670;
 let startLevelSound;
-let voiceOver;
 let caveSound;
 let breathingSound;
 let heartBeat;
