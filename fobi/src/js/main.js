@@ -13,6 +13,7 @@ let endRed = 1085;
 let redZone = endRed - startRed;
 let shakeStart = 670;
 let startLevelSound;
+let voiceOver
 let caveSound;
 let breathingSound;
 let heartBeat;
@@ -25,6 +26,7 @@ function preload() {
 	topImg = loadImage("./assets/grotte_oppeNY2.png");
 	characterImage = loadImage("./assets/phobogif.gif");
 	startLevelSound = loadSound("./assets/nyfobi.wav");
+	voiceOver = loadSound("./assets/story_voiceover.mp3")
 	caveSound = loadSound("./assets/vanndrypp_hule.wav");
 	breathingSound = loadSound("./assets/tung_pust.mp3");
 	heartBeat = loadSound("./assets/hjerteslag.wav");
@@ -39,6 +41,7 @@ function setup() {
 	bgImg = loadImage('./assets/bg.png');
 	startLevelSound.setVolume(0.1);
 	startLevelSound.play();
+	voiceOver.play(2, 1, 0.5, 0, 13.5);
 	caveSound.setVolume(0.1);
 	caveSound.play();
 	caveSound.setLoop(true);
@@ -75,7 +78,11 @@ function draw() {
 
 	// character speed and movement
 	character.velocity.y += world.gravity.y;
-	speed /= 1.05;
+	if (voiceOver.isPlaying(true)) {
+		speed = 0;
+	} else {
+		speed /= 1.05;
+	}
 
 	character.position.y += character.velocity.y;
 	character.position.x += speed;
